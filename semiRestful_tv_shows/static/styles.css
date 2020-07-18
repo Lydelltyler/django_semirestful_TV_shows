@@ -1,0 +1,13 @@
+* {
+    vertical-align: top;
+}
+
+.book_info {
+    display: flex;
+    margin: 2em;
+    width: 30em;
+}
+
+.headers {
+    text-align: center;
+}
