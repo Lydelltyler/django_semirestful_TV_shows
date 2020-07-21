@@ -4,10 +4,26 @@
 
 .book_info {
     display: flex;
-    margin: 2em;
-    width: 30em;
+    margin: 2em auto 0em auto;
+    padding: 0em 10em;
+    text-align: center;
+}
+
+.home {
+    margin: 0em auto;
+    padding: 3em 10em 0em 10em;
+    width: 60em;
 }
 
 .headers {
     text-align: center;
+}
+
+.linkss {
+margin-left: 10em;
+}
+
+.links {
+    text-align: right;
+    
 }

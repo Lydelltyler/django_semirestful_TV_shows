@@ -5,14 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'styles.css' %}">    
+    <link rel="stylesheet" href="{% static 'styles.css' %}">  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+   
     <!-- CHANGE CSS FILE LOCATION -->
 
     <title> Show Books </title>
 </head>
 
 <body>
-
+    <a class="links btn btn-outline-dark" href="{% url 'home' %}">Go Back</a>
     <h1>
         TV Show {{show_info.id}}
     </h1>
@@ -23,9 +26,9 @@
     <p>Description: {{show_info.desc}} </p>
 
     <p>Last Updated: {{show_info.updated_at}} </p>
-    <form action="/delete" method="POST">
+    <form action="/show_actions" method="POST">
         {% csrf_token %}
-        <button>Edit</button>|<button type="submit" name='which_show'           value={{show_info.id}}>delete</button>
+        <button class="btn btn-outline-dark" name='edit_show' value={{show_info.id}}>Edit</button>  <button class="btn btn-outline-dark" type="submit" name='delete_show' value={{show_info.id}}>delete</button>
     </form>
 </body>
 

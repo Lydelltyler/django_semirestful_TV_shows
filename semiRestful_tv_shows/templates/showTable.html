@@ -5,63 +5,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'styles.css' %}">    <!-- CHANGE CSS FILE LOCATION -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}">    
+    <!-- CHANGE CSS FILE LOCATION -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <title> Document </title>
+    <title> Shows </title>
 </head>
 
 <body>
+    <h1 class="headers">All Shows</h1>
     <div class="book_info">
-    <h1 class="headers">Book Info</h1>
-    <table class="table tabbb table-bordered">
-        <thead class="thead-dark">
+
+        <!----------- ID COLUMN ----------->
+        <table class="table tabbb table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</td>
+                </tr>
+            </thead>
+            {%for show in show_table%}
             <tr>
-                <th scope="col">ID</td>
+                <th scope="col"><button class="btn btn-sm btn-dark row">{{show.id}}</button></th>
+
             </tr>
-        </thead>
-        {%for book in book_info%}
-        <tr>
-            <th scope="col"><button class="btn btn-sm btn-dark row">{{book.id}}</button></th>
-
-        </tr>
-        {%endfor%}
-    </table>
-
-    <table class="table tabbb table-bordered">
-        <thead class="thead-dark">
+            {%endfor%}
+        </table>
+        <!----------- TITLE COLUMN ----------->
+        <table class="table tabbb table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Title</td>
+                </tr>
+            </thead>
+            {%for show in show_table%}
             <tr>
-                <th scope="col">Title</td>
+                <th scope="col"><button class="btn btn-sm btn-dark row">{{show.title}}</button></th>
             </tr>
-        </thead>
-        {%for book in book_info%}
-        <tr>
-            <th scope="col"><button class="btn btn-sm btn-dark row">{{book.title}}</button></th>
-        </tr>
-        {%endfor%}
-
-    </table>
-
-    <table class="table tabbb table-bordered">
-        <thead class="thead-dark">
+            {%endfor%}
+        </table>
+        <!----------- NETWORK COLUMN ----------->
+        <table class="table tabbb table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Network</td>
+                </tr>
+            </thead>
+            {%for show in show_table%}
             <tr>
-                <th scope="col">Action</td>
+                <th scope="col"><button class="btn btn-sm btn-dark row">{{show.network}}</button></th>
             </tr>
-        </thead>
-        {%for book in book_info%}
-        <tr>
-            <th scope="row">
-                <form action="/view_book" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="which_book" value={{book.id}}>
-                    <button type="sumbit" class="btn btn-sm btn-dark">View</button>
-                </form>
-                </td>
-        </tr>
-        {%endfor%}
-    </table>
-</div>
+            {%endfor%}
+        </table>
+        <!----------- RELEASE DATE COLUMN ----------->
+        <table class="table tabbb table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Release Date</td>
+                </tr>
+            </thead>
+            {%for show in show_table%}
+            <tr>
+                <th scope="col"><button class="btn btn-sm btn-dark row">{{show.release}}</button></th>
+            </tr>
+            {%endfor%}
+        </table>
+        <!----------- ACTIONS COLUMN ----------->
+        <table class="table tabbb table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Actions</td>
+                </tr>
+            </thead>
+            {%for show in show_table%}
+            <tr>
+                <th scope="row">
+                    <form action="/show_actions" method="POST">
+                        {% csrf_token %}
+                        <button type="sumbit" class="btn btn-sm btn-dark" name='view_show' value={{show.id}}>Show</button>
+                        <button type="sumbit" class="btn btn-sm btn-dark" name='edit_show' value={{show.id}}>Edit</button>
+                        <button type="sumbit" class="btn btn-sm btn-dark" name='delete_show' value={{show.id}}>Delete</button>
+                    </form>
+                    </td>
+            </tr>
+            {%endfor%}
+        </table>
+    </div>
+    <a class="linkss btn btn-outline-dark" href="{% url 'create_show' %}">Add a New Show</a>
 </body>
 
 </html>
