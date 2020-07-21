@@ -24,19 +24,6 @@ def create_show(request):
     print(request.GET)
     return render(request, "addShow.html")
 
-####### TEMPLATE FOR EDITING SHOWS
-
-def edit_show(request, id):
-    
-    this_id= int(id)
-    
-    context ={
-        'show_info': Shows.objects.get(id=this_id)
-    }
-
-    print(request.GET)
-    return render(request, "editShow.html", context)
-
 ######## ADDS SHOW TO DATABASE
 
 def adds_show(request):
@@ -84,10 +71,9 @@ def update_show(request, id):
     return redirect(f'/shows/{id}')
 
 
-####### DISPLAY SHOW INFORMATION
+####### VIEW SHOW INFORMATION
 
 def view_show(request, id):
-
     this_id = int(id)
     context = {
         'show_info': Shows.objects.get(id=this_id)
@@ -95,32 +81,21 @@ def view_show(request, id):
     print(this_id)
     return render(request, 'showInfo.html', context)
 
+####### DELETE SHOW INFORMATION
 
-######## TABLE ACTIONS
-
-def show_methods(request):
-    all_shows = Shows.objects.all()
-    
-    for key, value in request.POST.items():
-        # FOR DELETED SHOWS
-        if key == "delete_show":
-            for show in all_shows:
-                if show.id == int(request.POST['delete_show']):
-                    print(show.id)
-                    show.delete()
-        # FOR EDITING SHOWS
-        if key == "edit_show":
-            for show in all_shows:
-                if show.id == int(request.POST['edit_show']):
-                    print(show.id)
-                    return redirect(f'/shows/{show.id}/edit')
-        # FOR VIEWING SHOWS
-        if key == "view_show":
-            for show in all_shows:
-                if show.id == int(request.POST['view_show']):
-                    # print(show.id)
-                    return redirect(f'/shows/{show.id}' )
-        
-        print(key, value)
-    print(request.POST)
+def delete(request, id):
+    show = Shows.objects.get(id=id)
+    show.delete()
+    print(id)
     return redirect('/shows')
+
+####### TEMPLATE FOR EDITING SHOWS
+
+def edit_show(request, id):
+    this_id= int(id)
+    context ={
+        'show_info': Shows.objects.get(id=this_id)
+    }
+    print(request.GET)
+    return render(request, "editShow.html", context)
+
